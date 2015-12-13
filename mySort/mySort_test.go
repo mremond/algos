@@ -17,8 +17,12 @@ func init() {
 func TestInsertionSortBasic(t *testing.T) {
 	// Test with fully reversed list
 	list := []int{10, 9, 8, 7, 6, 5, 4, 3, 2, 1}
-	sortedList := mySort.InsertionSort(list)
-	checkOrder(sortedList, t)
+	checkOrder(mySort.InsertionSort(list), t)
+}
+
+func TestInsertionSortRandom(t *testing.T) {
+	list := buildRandomIntList(100)
+	checkOrder(mySort.InsertionSort(list), t)
 }
 
 func benchmarkInsertionSort(i int, b *testing.B) {
