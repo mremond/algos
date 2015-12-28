@@ -45,9 +45,24 @@ func TestMultipleElem(t *testing.T) {
 		list.InsertNext(list.Tail, &data[i])
 	}
 
-	if  list.Size != len(data) {
+	if list.Size != len(data) {
 		t.Error("Incorrect list size: ", list.Size," instead of ", len(data))
 	}
 
-//	for item := list.H;
+	current_item := list.Head
+	i := 0
+	for current_item.Next != nil {
+		current_data := current_item.Data.(*int)
+		if *current_data != data[i] {
+			t.Error("Incorrect element found: ", current_item.Data, " instead of ", data[i])
+		}
+		current_item = current_item.Next
+		i++
+	}
+
+	// Check tail
+	TData := list.Tail.Data.(*int)
+	if *TData != data[len(data) - 1] {
+		t.Error("Incorrect data at tail: ", list.Tail.Data)
+	}
 }
