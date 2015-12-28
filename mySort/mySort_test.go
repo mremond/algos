@@ -5,7 +5,7 @@ import (
 	"testing"
 	"time"
 
-	"github.com/mremond/algos/mySort"
+	"github.com/mremond/go/mySort"
 )
 
 // Testing InsertionSort
