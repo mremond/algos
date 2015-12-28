@@ -33,11 +33,11 @@ func (list *List) InsertNext(elem *Elem, data interface{}) {
 			list.T = newElem // If list size was 0, first and last elements are the same
 		}
 	} else { // Insert element somewhere other than head
-		newElem.Next = elem.Next
-		elem.Next = newElem
 		if elem.Next == nil {
 			list.T = newElem // We are inserting at the end
 		}
+		newElem.Next = elem.Next
+		elem.Next = newElem
 	}
 
 	list.Size++
