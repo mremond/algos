@@ -4,6 +4,7 @@ import (
 	"testing"
 
 	"github.com/mremond/go/myList"
+	"fmt"
 )
 
 func TestNewList(t *testing.T) {
@@ -18,7 +19,7 @@ type myStruct struct {
 	value int
 }
 
-func TestSingleElem(t *testing.T) {
+func TestSingleElemInsert(t *testing.T) {
 	list := myList.NewList()
 	data := 1
 	list.InsertNext(nil, &data) // nil -> Insert in front
@@ -38,7 +39,7 @@ func TestSingleElem(t *testing.T) {
 	}
 }
 
-func TestMultipleElem(t *testing.T) {
+func TestMultipleElemInsert(t *testing.T) {
 	list := myList.NewList()
 	data := [5]int{1, 2, 3, 4, 5}
 	for i, _ := range data {
@@ -64,5 +65,27 @@ func TestMultipleElem(t *testing.T) {
 	TData := list.Tail.Data.(*int)
 	if *TData != data[len(data) - 1] {
 		t.Error("Incorrect data at tail: ", list.Tail.Data)
+	}
+}
+
+func TestRemoveAllFromHead(t *testing.T) {
+	list := myList.NewList()
+	data := [5]int{1, 2, 3, 4, 5}
+	for i, _ := range data {
+		list.InsertNext(list.Tail, &data[i])
+	}
+
+	size := list.Size
+	for i := 0; i < size; i++ {
+		fmt.Println("Elements to remove: ", list.Size)
+		fmt.Println("Removing Element", list.Head.Data)
+		if _, err := list.RemoveNext(nil); err != nil {
+			t.Error("Error when removing item from list: ", err)
+		}
+		fmt.Println("Size ", list.Size)
+	}
+
+	if list.Size != 0 {
+		t.Error("After removing all elements from list, list size should be zero: ", list.Size)
 	}
 }
