@@ -9,9 +9,9 @@ type Elem struct {
 }
 
 type List struct {
-	H    *Elem // Head
-	T    *Elem // Tail: Shortcut to last element (=> Not equivalent to cdr in lisp)
-	Size uint
+	Head *Elem // Head
+	Tail *Elem // Tail: Shortcut to last element (=> Not equivalent to cdr in lisp)
+	Size int
 }
 
 func NewList() *List {
@@ -27,27 +27,18 @@ func (list *List) InsertNext(elem *Elem, data interface{}) {
 
 	// Insert element in front
 	if elem == nil {
-		newElem.Next = list.H
-		list.H = newElem
+		newElem.Next = list.Head
+		list.Head = newElem
 		if list.Size == 0 {
-			list.T = newElem // If list size was 0, first and last elements are the same
+			list.Tail = newElem // If list size was 0, first and last elements are the same
 		}
 	} else { // Insert element somewhere other than head
 		if elem.Next == nil {
-			list.T = newElem // We are inserting at the end
+			list.Tail = newElem // We are inserting at the end
 		}
 		newElem.Next = elem.Next
 		elem.Next = newElem
 	}
 
 	list.Size++
-}
-
-func (list List) Head() *Elem {
-	return list.H
-}
-
-// Should we return the tail wrapped in a list instead of directly a pointer to the first element of the tail ?
-func (list List) Tail() *Elem {
-	return list.T
 }
